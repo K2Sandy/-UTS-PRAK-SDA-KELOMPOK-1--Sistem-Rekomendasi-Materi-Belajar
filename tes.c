@@ -79,7 +79,7 @@ void tampilkanPlaylist(PlaylistLinkedList* list) {
 
 // 2. BINARY SEARCH TREE (Database Materi)
 // ========================================================
-typedef struct BSTNode {
+typedef struct BSTNode {    
     Materi data;
     struct BSTNode* left;
     struct BSTNode* right;
@@ -100,6 +100,28 @@ BSTNode* insertBST(BSTNode* node, Materi m) {
     return node;
 }
 
+// 3. GENERAL TREE (Sistem Kategori)
+// ========================================================
+typedef struct TreeNode {
+    int idKategori; 
+    char namaKategori[100];
+    int numChildren;
+    struct TreeNode* children[MAX_CHILDREN]; 
+} TreeNode;
+
+TreeNode* buatNodeTree(int id, const char* nama) {
+    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+    newNode->idKategori = id;
+    strcpy(newNode->namaKategori, nama);
+    newNode->numChildren = 0;
+    return newNode;
+}
+
+void addChild(TreeNode* parent, TreeNode* child) {
+    if (parent->numChildren < MAX_CHILDREN) {
+        parent->children[parent->numChildren++] = child;
+    }
+}
 // ========================================================
 // PROGRAM UTAMA
 // ========================================================
