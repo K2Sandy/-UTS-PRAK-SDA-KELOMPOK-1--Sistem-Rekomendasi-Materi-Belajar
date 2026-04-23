@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 #define MAX_CHILDREN 10
-
 typedef struct {
     int kategoriId; char nama[50]; char deskripsi[50];
     int tingkatKesulitan; int durasiMenit;      
@@ -16,7 +15,6 @@ Materi buatMateri(int katId, const char* nama, const char* desk, int kesulitan, 
 }
 
 void bersihkanBuffer() { int c; while ((c = getchar()) != '\n' && c != EOF); }
-
 typedef struct ListNode { Materi data; struct ListNode* next; } ListNode;
 typedef struct { ListNode* head; } PlaylistLinkedList;
 void initLinkedList(PlaylistLinkedList* list) { list->head = NULL; }
@@ -38,6 +36,45 @@ void tampilkanPlaylist(PlaylistLinkedList* list) {
     printf(" =========================================================================\n");
 }
 
+// SORTING 1: Berdasarkan Waktu Tercepat
+void insertionSortByDurasi(PlaylistLinkedList* list) {
+    if (list->head == NULL || list->head->next == NULL) return;
+    ListNode* sorted = NULL; ListNode* current = list->head; 
+    while (current != NULL) {
+        ListNode* nextNode = current->next; 
+        if (sorted == NULL || sorted->data.durasiMenit >= current->data.durasiMenit) {
+            current->next = sorted; sorted = current;
+        } else {
+            ListNode* temp = sorted;
+            while (temp->next != NULL && temp->next->data.durasiMenit < current->data.durasiMenit) temp = temp->next;
+            current->next = temp->next; temp->next = current;
+        }
+        current = nextNode; 
+    }
+    list->head = sorted; 
+}
+
+// SORTING 2: Berdasarkan Tingkat Kesulitan Terendah
+void insertionSortByKesulitan(PlaylistLinkedList* list) {
+    if (list->head == NULL || list->head->next == NULL) return;
+    ListNode* sorted = NULL; ListNode* current = list->head; 
+    while (current != NULL) {
+        ListNode* nextNode = current->next; 
+        if (sorted == NULL || sorted->data.tingkatKesulitan >= current->data.tingkatKesulitan) {
+            current->next = sorted; sorted = current;
+        } else {
+            ListNode* temp = sorted;
+            while (temp->next != NULL && temp->next->data.tingkatKesulitan < current->data.tingkatKesulitan) temp = temp->next;
+            current->next = temp->next; temp->next = current;
+        }
+        current = nextNode; 
+    }
+    list->head = sorted; 
+}
+
+// ========================================================
+// 2. BINARY SEARCH TREE & INORDER TRAVERSAL
+// ========================================================
 typedef struct BSTNode { Materi data; struct BSTNode* left; struct BSTNode* right; } BSTNode;
 BSTNode* insertBST(BSTNode* node, Materi m) {
     if (node == NULL) {
@@ -49,6 +86,18 @@ BSTNode* insertBST(BSTNode* node, Materi m) {
     return node;
 }
 
+void kumpulkanMateriInorder(BSTNode* node, int filterKatId, int maxDurasi, int maxSulit, Materi* arr[], int* count) {
+    if (node == NULL) return;
+    kumpulkanMateriInorder(node->left, filterKatId, maxDurasi, maxSulit, arr, count);     
+    if (node->data.kategoriId == filterKatId && node->data.durasiMenit <= maxDurasi && node->data.tingkatKesulitan <= maxSulit) {
+        arr[*count] = &(node->data); (*count)++;
+    }
+    kumpulkanMateriInorder(node->right, filterKatId, maxDurasi, maxSulit, arr, count);    
+}
+
+// ========================================================
+// 3. GENERAL TREE (Sistem Kategori)
+// ========================================================
 typedef struct TreeNode { int idKategori; char namaKategori[100]; int numChildren; struct TreeNode* children[MAX_CHILDREN]; } TreeNode;
 TreeNode* buatNodeTree(int id, const char* nama) {
     TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
@@ -58,7 +107,9 @@ void addChild(TreeNode* parent, TreeNode* child) {
     if (parent->numChildren < MAX_CHILDREN) { parent->children[parent->numChildren++] = child; }
 }
 
-// FUNGSI TABEL PEMILIHAN MATERI
+// ========================================================
+// FUNGSI UI UX BERSAMA (Tabel Pilihan)
+// ========================================================
 void prosesPilihMateri(Materi* arr[], int count, PlaylistLinkedList* playlist) {
     if (count == 0) {
         printf("\n [-] Tidak ada materi yang ditemukan/sesuai kriteria.\n");
@@ -96,43 +147,13 @@ int main() {
     addChild(sains, buatNodeTree(3, "Biologi")); addChild(sains, buatNodeTree(4, "Fisika"));
     addChild(sains, buatNodeTree(6, "Kimia")); addChild(soshum, buatNodeTree(5, "Sejarah"));
 
-    // --- SETUP BST MATERI (Data disuntikkan ke memori) ---
-    // 1: Informatika
-    rootBST = insertBST(rootBST, buatMateri(1, "Tree & BST", "Hirarki data non-linear.", 50, 45));
-    rootBST = insertBST(rootBST, buatMateri(1, "Logika Dasar", "Fondasi algoritma IF-ELSE.", 10, 30));
-    rootBST = insertBST(rootBST, buatMateri(1, "Array 1 Dimensi", "Penyimpanan memori sekuensial.", 20, 25));
-    rootBST = insertBST(rootBST, buatMateri(1, "Linked List", "Pointer data dinamis.", 30, 60));
-    rootBST = insertBST(rootBST, buatMateri(1, "Graph Theory", "Rute terpendek Dijkstra.", 80, 90));
-    // 2: Matematika
-    rootBST = insertBST(rootBST, buatMateri(2, "Trigonometri", "Sin, Cos, Tan.", 45, 40));
-    rootBST = insertBST(rootBST, buatMateri(2, "Aritmatika Dasar", "Penjumlahan & Pengurangan.", 15, 20));
-    rootBST = insertBST(rootBST, buatMateri(2, "Aljabar Linear", "Matriks dan Vektor.", 35, 60));
-    rootBST = insertBST(rootBST, buatMateri(2, "Kalkulus Lanjut", "Limit dan Integral.", 60, 90));
-    rootBST = insertBST(rootBST, buatMateri(2, "Probabilitas", "Peluang & Statistik.", 70, 75));
-    // 3: Biologi
-    rootBST = insertBST(rootBST, buatMateri(3, "Genetika Kromosom", "Pewarisan sifat gen.", 45, 50));
-    rootBST = insertBST(rootBST, buatMateri(3, "Anatomi Sel", "Bagian-bagian sel.", 15, 30));
-    rootBST = insertBST(rootBST, buatMateri(3, "Ekosistem", "Rantai makanan.", 30, 40));
-    rootBST = insertBST(rootBST, buatMateri(3, "Evolusi Manusia", "Teori asal usul.", 75, 60));
-    rootBST = insertBST(rootBST, buatMateri(3, "Sistem Saraf", "Otak dan impuls.", 85, 80));
-    // 4: Fisika
-    rootBST = insertBST(rootBST, buatMateri(4, "Hukum Newton", "Gaya dan gerak lurus.", 25, 45));
-    rootBST = insertBST(rootBST, buatMateri(4, "Kinematika", "Kecepatan & Percepatan.", 35, 50));
-    rootBST = insertBST(rootBST, buatMateri(4, "Optik Geometri", "Cermin dan Lensa.", 55, 60));
-    rootBST = insertBST(rootBST, buatMateri(4, "Termodinamika", "Suhu dan Kalor.", 65, 80));
-    rootBST = insertBST(rootBST, buatMateri(4, "Fisika Kuantum", "Partikel sub-atomik.", 95, 120));
-    // 5: Sejarah
-    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dingin", "Blok Barat vs Timur.", 50, 40));
-    rootBST = insertBST(rootBST, buatMateri(5, "Manusia Purba", "Zaman batu dan logam.", 15, 25));
-    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dunia II", "Sejarah eropa 1940an.", 20, 30));
-    rootBST = insertBST(rootBST, buatMateri(5, "Kemerdekaan RI", "Proklamasi 1945.", 30, 35));
-    rootBST = insertBST(rootBST, buatMateri(5, "Revolusi Industri", "Eropa abad ke-18.", 40, 45));
-    // 6: Kimia
-    rootBST = insertBST(rootBST, buatMateri(6, "Asam & Basa", "Skala pH dan titrasi.", 50, 45));
-    rootBST = insertBST(rootBST, buatMateri(6, "Tabel Periodik", "Unsur-unsur dasar.", 20, 30));
-    rootBST = insertBST(rootBST, buatMateri(6, "Ikatan Kimia", "Kovalen dan Ionik.", 40, 40));
-    rootBST = insertBST(rootBST, buatMateri(6, "Stoikiometri", "Perhitungan mol.", 60, 70));
-    rootBST = insertBST(rootBST, buatMateri(6, "Kimia Organik", "Rantai Karbon.", 80, 90));
+    // --- SETUP BST MATERI ---
+    rootBST = insertBST(rootBST, buatMateri(1, "Tree & BST", "Hirarki data non-linear.", 50, 45)); rootBST = insertBST(rootBST, buatMateri(1, "Logika Dasar", "Fondasi algoritma.", 10, 30)); rootBST = insertBST(rootBST, buatMateri(1, "Array 1 Dimensi", "Memori sekuensial.", 20, 25)); rootBST = insertBST(rootBST, buatMateri(1, "Linked List", "Pointer data dinamis.", 30, 60)); rootBST = insertBST(rootBST, buatMateri(1, "Graph Theory", "Rute Dijkstra.", 80, 90));
+    rootBST = insertBST(rootBST, buatMateri(2, "Trigonometri", "Sin, Cos, Tan.", 45, 40)); rootBST = insertBST(rootBST, buatMateri(2, "Aritmatika Dasar", "Plus & Minus.", 15, 20)); rootBST = insertBST(rootBST, buatMateri(2, "Aljabar Linear", "Matriks.", 35, 60)); rootBST = insertBST(rootBST, buatMateri(2, "Kalkulus Lanjut", "Integral.", 60, 90)); rootBST = insertBST(rootBST, buatMateri(2, "Probabilitas", "Peluang.", 70, 75));
+    rootBST = insertBST(rootBST, buatMateri(3, "Genetika Kromosom", "Pewarisan sifat.", 45, 50)); rootBST = insertBST(rootBST, buatMateri(3, "Anatomi Sel", "Bagian sel.", 15, 30)); rootBST = insertBST(rootBST, buatMateri(3, "Ekosistem", "Rantai makanan.", 30, 40)); rootBST = insertBST(rootBST, buatMateri(3, "Evolusi Manusia", "Asal usul.", 75, 60)); rootBST = insertBST(rootBST, buatMateri(3, "Sistem Saraf", "Otak & impuls.", 85, 80));
+    rootBST = insertBST(rootBST, buatMateri(4, "Hukum Newton", "Gaya & gerak.", 25, 45)); rootBST = insertBST(rootBST, buatMateri(4, "Kinematika", "Kecepatan.", 35, 50)); rootBST = insertBST(rootBST, buatMateri(4, "Optik Geometri", "Cermin.", 55, 60)); rootBST = insertBST(rootBST, buatMateri(4, "Termodinamika", "Kalor.", 65, 80)); rootBST = insertBST(rootBST, buatMateri(4, "Fisika Kuantum", "Sub-atomik.", 95, 120));
+    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dingin", "Blok Barat Timur.", 50, 40)); rootBST = insertBST(rootBST, buatMateri(5, "Manusia Purba", "Zaman batu.", 15, 25)); rootBST = insertBST(rootBST, buatMateri(5, "Perang Dunia II", "Eropa 1940an.", 20, 30)); rootBST = insertBST(rootBST, buatMateri(5, "Kemerdekaan RI", "1945.", 30, 35)); rootBST = insertBST(rootBST, buatMateri(5, "Revolusi Industri", "Eropa abad 18.", 40, 45));
+    rootBST = insertBST(rootBST, buatMateri(6, "Asam & Basa", "Skala pH.", 50, 45)); rootBST = insertBST(rootBST, buatMateri(6, "Tabel Periodik", "Unsur dasar.", 20, 30)); rootBST = insertBST(rootBST, buatMateri(6, "Ikatan Kimia", "Kovalen Ionik.", 40, 40)); rootBST = insertBST(rootBST, buatMateri(6, "Stoikiometri", "Mol.", 60, 70)); rootBST = insertBST(rootBST, buatMateri(6, "Kimia Organik", "Karbon.", 80, 90));
 
     bool running = true;
     while (running) {
@@ -145,13 +166,93 @@ int main() {
         printf(" 3. Lihat Daftar Belajarku\n");
         printf(" 0. Keluar Aplikasi\n");
         printf("======================================================\n");
-        printf(" Pilih menu (0-3): ");
-        scanf("%d", &pilihanUtama); bersihkanBuffer();
+        printf(" Pilih menu (0-3): "); scanf("%d", &pilihanUtama); bersihkanBuffer();
 
         switch (pilihanUtama) {
-            case 1: printf("\n [-] Fitur Katalog masih dalam pengembangan.\n"); break;
-            case 2: printf("\n [-] Fitur Rekomendasi masih dalam pengembangan.\n"); break;
-            case 3: printf("\n=== DAFTAR BELAJARKU ===\n"); tampilkanPlaylist(&daftarBelajar); break;
+            case 1: { 
+                bool inKatalog = true;
+                while (inKatalog) {
+                    printf("\n=== KATALOG PELAJARAN ===\n");
+                    for (int i = 0; i < menuRoot->children[0]->numChildren; i++) {
+                        printf(" %d. %s\n", menuRoot->children[0]->children[i]->idKategori, menuRoot->children[0]->children[i]->namaKategori);
+                    }
+                    for (int i = 0; i < menuRoot->children[1]->numChildren; i++) {
+                        printf(" %d. %s\n", menuRoot->children[1]->children[i]->idKategori, menuRoot->children[1]->children[i]->namaKategori);
+                    }
+                    printf(" 0. Kembali ke menu utama\n Pilih (0-6): ");
+                    int pilKat; scanf("%d", &pilKat); bersihkanBuffer();
+
+                    if (pilKat == 0) inKatalog = false;
+                    else if (pilKat >= 1 && pilKat <= 6) {
+                        Materi* arrTemp[50]; int count = 0;
+                        kumpulkanMateriInorder(rootBST, pilKat, 9999, 9999, arrTemp, &count);
+                        printf("\n Menampilkan materi terpilih:");
+                        prosesPilihMateri(arrTemp, count, &daftarBelajar);
+                    } else printf(" [-] Pilihan tidak valid!\n");
+                }
+                break;
+            }
+            case 2: { 
+                bool inRekomendasi = true;
+                while (inRekomendasi) {
+                    printf("\n=== SISTEM REKOMENDASI ===\n");
+                    for (int i = 0; i < menuRoot->children[0]->numChildren; i++) {
+                        printf(" %d. %s\n", menuRoot->children[0]->children[i]->idKategori, menuRoot->children[0]->children[i]->namaKategori);
+                    }
+                    for (int i = 0; i < menuRoot->children[1]->numChildren; i++) {
+                        printf(" %d. %s\n", menuRoot->children[1]->children[i]->idKategori, menuRoot->children[1]->children[i]->namaKategori);
+                    }
+                    printf(" 0. Kembali\n Pelajaran apa yang ingin dicari? (0-6): ");
+                    int pilPelajaran; scanf("%d", &pilPelajaran); bersihkanBuffer();
+
+                    if (pilPelajaran == 0) inRekomendasi = false;
+                    else if (pilPelajaran >= 1 && pilPelajaran <= 6) {
+                        int batasWaktu, batasSulit;
+                        printf(" Maksimal waktu belajar (menit) : "); scanf("%d", &batasWaktu);
+                        printf(" Maksimal kesulitan (1-100)     : "); scanf("%d", &batasSulit); bersihkanBuffer();
+
+                        Materi* arrTemp[50]; int count = 0;
+                        kumpulkanMateriInorder(rootBST, pilPelajaran, batasWaktu, batasSulit, arrTemp, &count);
+                        printf("\n Rekomendasi materi untukmu:");
+                        prosesPilihMateri(arrTemp, count, &daftarBelajar);
+                    } else printf(" [-] Pilihan tidak valid!\n");
+                }
+                break;
+            }
+            case 3: { 
+                bool inDaftar = true;
+                while (inDaftar) {
+                    printf("\n=== DAFTAR BELAJARKU ===\n");
+                    tampilkanPlaylist(&daftarBelajar);
+                    
+                    if (daftarBelajar.head == NULL) {
+                        printf("\n Tekan [Enter] untuk kembali..."); getchar();
+                        inDaftar = false;
+                        break;
+                    }
+
+                    printf("\n Aksi:\n");
+                    printf(" 1. Urutkan berdasarkan waktu tercepat\n");
+                    printf(" 2. Urutkan berdasarkan tingkat kesulitan terendah\n");
+                    printf(" 0. Kembali ke menu sebelumnya\n");
+                    printf(" Pilih (0-2): ");
+                    
+                    int aksi; scanf("%d", &aksi); bersihkanBuffer();
+
+                    if (aksi == 0) {
+                        inDaftar = false;
+                    } else if (aksi == 1) {
+                        insertionSortByDurasi(&daftarBelajar);
+                        printf("\n [+] Diurutkan berdasarkan WAKTU!\n");
+                    } else if (aksi == 2) {
+                        insertionSortByKesulitan(&daftarBelajar);
+                        printf("\n [+] Diurutkan berdasarkan KESULITAN!\n");
+                    } else {
+                        printf(" [-] Pilihan tidak valid!\n");
+                    }
+                }
+                break;
+            }
             case 0: printf("\n Terima kasih telah menggunakan EduGraph. Sampai jumpa!\n"); running = false; break;
             default: printf("\n [-] Pilihan tidak valid. Silakan coba lagi.\n");
         }
