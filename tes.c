@@ -3,7 +3,29 @@
 #include <string.h>
 #include <stdbool.h>
 
-// Fungsi pembantu untuk membersihkan buffer input (mencegah error loop)
+#define MAX_CHILDREN 10
+
+// ========================================================
+// 0. STRUKTUR DATA UTAMA
+// ========================================================
+typedef struct {
+    int kategoriId; // 1: Info, 2: MTK, 3: Bio, 4: Fis, 5: Sej, 6: Kim
+    char nama[50];
+    char deskripsi[50];
+    int tingkatKesulitan; 
+    int durasiMenit;      
+} Materi;
+
+Materi buatMateri(int katId, const char* nama, const char* desk, int kesulitan, int durasi) {
+    Materi m;
+    m.kategoriId = katId;
+    strcpy(m.nama, nama);
+    strcpy(m.deskripsi, desk);
+    m.tingkatKesulitan = kesulitan;
+    m.durasiMenit = durasi;
+    return m;
+}
+
 void bersihkanBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
