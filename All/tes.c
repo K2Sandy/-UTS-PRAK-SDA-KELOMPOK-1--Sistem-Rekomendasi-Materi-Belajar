@@ -154,6 +154,16 @@ int main() {
     addChild(sains, buatNodeTree(6, "Kimia")); addChild(soshum, buatNodeTree(5, "Sejarah"));
     addChild(soshum, buatNodeTree(10, "Ekonomi")); addChild(soshum, buatNodeTree(11, "Sosiologi"));
 
+    TreeNode* senbud = buatNodeTree(0, "Seni & Budaya");
+    addChild(senbud, buatNodeTree(7, "Seni Rupa"));
+    addChild(senbud, buatNodeTree(8, "Musik"));
+
+    TreeNode* olahraga = buatNodeTree(0, "Olahraga & Kesehatan");
+    addChild(olahraga, buatNodeTree(9, "Pend. Jasmani"));
+
+    addChild(menuRoot, senbud);
+    addChild(menuRoot, olahraga);
+
     // --- SETUP BST MATERI ---
     rootBST = insertBST(rootBST, buatMateri(1, "Tree & BST", "Hirarki data non-linear.", 50, 45)); rootBST = insertBST(rootBST, buatMateri(1, "Logika Dasar", "Fondasi algoritma.", 10, 30)); rootBST = insertBST(rootBST, buatMateri(1, "Array 1 Dimensi", "Memori sekuensial.", 20, 25)); rootBST = insertBST(rootBST, buatMateri(1, "Linked List", "Pointer data dinamis.", 30, 60)); rootBST = insertBST(rootBST, buatMateri(1, "Graph Theory", "Rute Dijkstra.", 80, 90));
     rootBST = insertBST(rootBST, buatMateri(2, "Trigonometri", "Sin, Cos, Tan.", 45, 40)); rootBST = insertBST(rootBST, buatMateri(2, "Aritmatika Dasar", "Plus & Minus.", 15, 20)); rootBST = insertBST(rootBST, buatMateri(2, "Aljabar Linear", "Matriks.", 35, 60)); rootBST = insertBST(rootBST, buatMateri(2, "Kalkulus Lanjut", "Integral.", 60, 90)); rootBST = insertBST(rootBST, buatMateri(2, "Probabilitas", "Peluang.", 70, 75));
