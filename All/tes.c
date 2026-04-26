@@ -194,7 +194,7 @@ int main() {
     rootBST = insertBST(rootBST, buatMateri(8, "Ritme & Birama",    "Ketukan & pola irama.",     25, 35));
     rootBST = insertBST(rootBST, buatMateri(8, "Harmoni Dasar",     "Akor mayor minor.",         45, 50));
     rootBST = insertBST(rootBST, buatMateri(8, "Sejarah Musik",     "Klasik hingga modern.",     30, 40));
-    rootBST = insertBST(rootBST, buatMateri(8, "Komposisi Musik",   "Membuat melodi.",
+    rootBST = insertBST(rootBST, buatMateri(8, "Komposisi Musik",   "Membuat melodi.",           75, 80));
     bool running = true;
     while (running) {
         int pilihanUtama;
