@@ -88,19 +88,27 @@ void insertionSortByDurasi(PlaylistLinkedList* list) {
 // SORTING 2: Berdasarkan Tingkat Kesulitan Terendah
 void insertionSortByKesulitan(PlaylistLinkedList* list) {
     if (list->head == NULL || list->head->next == NULL) return;
-    ListNode* sorted = NULL; ListNode* current = list->head; 
+
+    ListNode* sorted  = NULL;
+    ListNode* current = list->head;
+
     while (current != NULL) {
-        ListNode* nextNode = current->next; 
+        ListNode* nextNode = current->next;
+
         if (sorted == NULL || sorted->data.tingkatKesulitan >= current->data.tingkatKesulitan) {
-            current->next = sorted; sorted = current;
+            current->next = sorted;
+            sorted = current;
         } else {
             ListNode* temp = sorted;
-            while (temp->next != NULL && temp->next->data.tingkatKesulitan < current->data.tingkatKesulitan) temp = temp->next;
-            current->next = temp->next; temp->next = current;
+            while (temp->next != NULL &&
+                   temp->next->data.tingkatKesulitan < current->data.tingkatKesulitan)
+                temp = temp->next;
+            current->next = temp->next;
+            temp->next    = current;
         }
-        current = nextNode; 
+        current = nextNode;
     }
-    list->head = sorted; 
+    list->head = sorted;
 }
 
 // ========================================================
