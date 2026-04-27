@@ -195,6 +195,13 @@ int main() {
     rootBST = insertBST(rootBST, buatMateri(8, "Harmoni Dasar",     "Akor mayor minor.",         45, 50));
     rootBST = insertBST(rootBST, buatMateri(8, "Sejarah Musik",     "Klasik hingga modern.",     30, 40));
     rootBST = insertBST(rootBST, buatMateri(8, "Komposisi Musik",   "Membuat melodi.",           75, 80));
+
+    // Pend. Jasmani (katId=9)
+    rootBST = insertBST(rootBST, buatMateri(9, "Kebugaran Jasmani", "Komponen kebugaran.",       10, 20));
+    rootBST = insertBST(rootBST, buatMateri(9, "Atletik Dasar",     "Lari & lempar.",            20, 30));
+    rootBST = insertBST(rootBST, buatMateri(9, "Permainan Bola",    "Sepak bola & voli.",        30, 40));
+    rootBST = insertBST(rootBST, buatMateri(9, "Renang",            "Gaya bebas & dada.",        50, 45));
+    rootBST = insertBST(rootBST, buatMateri(9, "Kesehatan Olahraga","Cedera & pemulihan.",       60, 50));
     bool running = true;
     while (running) {
         int pilihanUtama;
