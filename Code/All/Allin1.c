@@ -137,13 +137,20 @@ BSTNode* insertBST(BSTNode* node, Materi m) {
     return node;
 }
 
-void kumpulkanMateriInorder(BSTNode* node, int filterKatId, int maxDurasi, int maxSulit, Materi* arr[], int* count) {
+void kumpulkanMateriInorder(BSTNode* node, int filterKatId,
+                             int maxDurasi, int maxSulit,
+                             Materi* arr[], int* count) {
     if (node == NULL) return;
-    kumpulkanMateriInorder(node->left, filterKatId, maxDurasi, maxSulit, arr, count);     
-    if (node->data.kategoriId == filterKatId && node->data.durasiMenit <= maxDurasi && node->data.tingkatKesulitan <= maxSulit) {
-        arr[*count] = &(node->data); (*count)++;
+
+    kumpulkanMateriInorder(node->left, filterKatId, maxDurasi, maxSulit, arr, count);
+
+    if (node->data.kategoriId       == filterKatId &&
+        node->data.durasiMenit      <= maxDurasi   &&
+        node->data.tingkatKesulitan <= maxSulit) {
+        arr[(*count)++] = &(node->data);
     }
-    kumpulkanMateriInorder(node->right, filterKatId, maxDurasi, maxSulit, arr, count);    
+
+    kumpulkanMateriInorder(node->right, filterKatId, maxDurasi, maxSulit, arr, count);
 }
 
 // ========================================================
