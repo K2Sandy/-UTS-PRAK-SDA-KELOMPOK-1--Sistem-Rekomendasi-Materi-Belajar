@@ -187,13 +187,47 @@ int main() {
     addChild(menuRoot, senbud);
     addChild(menuRoot, olahraga);
 
-    // --- SETUP BST MATERI ---
-    rootBST = insertBST(rootBST, buatMateri(1, "Tree & BST", "Hirarki data non-linear.", 50, 45)); rootBST = insertBST(rootBST, buatMateri(1, "Logika Dasar", "Fondasi algoritma.", 10, 30)); rootBST = insertBST(rootBST, buatMateri(1, "Array 1 Dimensi", "Memori sekuensial.", 20, 25)); rootBST = insertBST(rootBST, buatMateri(1, "Linked List", "Pointer data dinamis.", 30, 60)); rootBST = insertBST(rootBST, buatMateri(1, "Graph Theory", "Rute Dijkstra.", 80, 90));
-    rootBST = insertBST(rootBST, buatMateri(2, "Trigonometri", "Sin, Cos, Tan.", 45, 40)); rootBST = insertBST(rootBST, buatMateri(2, "Aritmatika Dasar", "Plus & Minus.", 15, 20)); rootBST = insertBST(rootBST, buatMateri(2, "Aljabar Linear", "Matriks.", 35, 60)); rootBST = insertBST(rootBST, buatMateri(2, "Kalkulus Lanjut", "Integral.", 60, 90)); rootBST = insertBST(rootBST, buatMateri(2, "Probabilitas", "Peluang.", 70, 75));
-    rootBST = insertBST(rootBST, buatMateri(3, "Genetika Kromosom", "Pewarisan sifat.", 45, 50)); rootBST = insertBST(rootBST, buatMateri(3, "Anatomi Sel", "Bagian sel.", 15, 30)); rootBST = insertBST(rootBST, buatMateri(3, "Ekosistem", "Rantai makanan.", 30, 40)); rootBST = insertBST(rootBST, buatMateri(3, "Evolusi Manusia", "Asal usul.", 75, 60)); rootBST = insertBST(rootBST, buatMateri(3, "Sistem Saraf", "Otak & impuls.", 85, 80));
-    rootBST = insertBST(rootBST, buatMateri(4, "Hukum Newton", "Gaya & gerak.", 25, 45)); rootBST = insertBST(rootBST, buatMateri(4, "Kinematika", "Kecepatan.", 35, 50)); rootBST = insertBST(rootBST, buatMateri(4, "Optik Geometri", "Cermin.", 55, 60)); rootBST = insertBST(rootBST, buatMateri(4, "Termodinamika", "Kalor.", 65, 80)); rootBST = insertBST(rootBST, buatMateri(4, "Fisika Kuantum", "Sub-atomik.", 95, 120));
-    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dingin", "Blok Barat Timur.", 50, 40)); rootBST = insertBST(rootBST, buatMateri(5, "Manusia Purba", "Zaman batu.", 15, 25)); rootBST = insertBST(rootBST, buatMateri(5, "Perang Dunia II", "Eropa 1940an.", 20, 30)); rootBST = insertBST(rootBST, buatMateri(5, "Kemerdekaan RI", "1945.", 30, 35)); rootBST = insertBST(rootBST, buatMateri(5, "Revolusi Industri", "Eropa abad 18.", 40, 45));
-    rootBST = insertBST(rootBST, buatMateri(6, "Asam & Basa", "Skala pH.", 50, 45)); rootBST = insertBST(rootBST, buatMateri(6, "Tabel Periodik", "Unsur dasar.", 20, 30)); rootBST = insertBST(rootBST, buatMateri(6, "Ikatan Kimia", "Kovalen Ionik.", 40, 40)); rootBST = insertBST(rootBST, buatMateri(6, "Stoikiometri", "Mol.", 60, 70)); rootBST = insertBST(rootBST, buatMateri(6, "Kimia Organik", "Karbon.", 80, 90));
+    // MATERI BST
+    rootBST = insertBST(rootBST, buatMateri(1, "Logika Dasar",     "Fondasi algoritma.",      10, 30));
+    rootBST = insertBST(rootBST, buatMateri(1, "Array 1 Dimensi",  "Memori sekuensial.",       20, 25));
+    rootBST = insertBST(rootBST, buatMateri(1, "Linked List",      "Pointer data dinamis.",    30, 60));
+    rootBST = insertBST(rootBST, buatMateri(1, "Tree & BST",       "Hirarki data non-linear.", 50, 45));
+    rootBST = insertBST(rootBST, buatMateri(1, "Graph Theory",     "Rute Dijkstra.",           80, 90));
+
+    // --- 2: Matematika ---
+    rootBST = insertBST(rootBST, buatMateri(2, "Aritmatika Dasar", "Plus & Minus.",  15, 20));
+    rootBST = insertBST(rootBST, buatMateri(2, "Aljabar Linear",   "Matriks.",       35, 60));
+    rootBST = insertBST(rootBST, buatMateri(2, "Trigonometri",     "Sin, Cos, Tan.", 45, 40));
+    rootBST = insertBST(rootBST, buatMateri(2, "Kalkulus Lanjut",  "Integral.",      60, 90));
+    rootBST = insertBST(rootBST, buatMateri(2, "Probabilitas",     "Peluang.",       70, 75));
+
+    // --- 3: Biologi ---
+    rootBST = insertBST(rootBST, buatMateri(3, "Anatomi Sel",       "Bagian sel.",       15, 30));
+    rootBST = insertBST(rootBST, buatMateri(3, "Ekosistem",         "Rantai makanan.",   30, 40));
+    rootBST = insertBST(rootBST, buatMateri(3, "Genetika Kromosom", "Pewarisan sifat.",  45, 50));
+    rootBST = insertBST(rootBST, buatMateri(3, "Evolusi Manusia",   "Asal usul.",        75, 60));
+    rootBST = insertBST(rootBST, buatMateri(3, "Sistem Saraf",      "Otak & impuls.",    85, 80));
+
+    // --- 4: Fisika ---
+    rootBST = insertBST(rootBST, buatMateri(4, "Hukum Newton",   "Gaya & gerak.", 25,  45));
+    rootBST = insertBST(rootBST, buatMateri(4, "Kinematika",     "Kecepatan.",    35,  50));
+    rootBST = insertBST(rootBST, buatMateri(4, "Optik Geometri", "Cermin.",       55,  60));
+    rootBST = insertBST(rootBST, buatMateri(4, "Termodinamika",  "Kalor.",        65,  80));
+    rootBST = insertBST(rootBST, buatMateri(4, "Fisika Kuantum", "Sub-atomik.",   95, 120));
+
+    // --- 5: Sejarah ---
+    rootBST = insertBST(rootBST, buatMateri(5, "Manusia Purba",     "Zaman batu.",      15, 25));
+    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dunia II",   "Eropa 1940an.",    20, 30));
+    rootBST = insertBST(rootBST, buatMateri(5, "Kemerdekaan RI",    "1945.",            30, 35));
+    rootBST = insertBST(rootBST, buatMateri(5, "Revolusi Industri", "Eropa abad 18.",   40, 45));
+    rootBST = insertBST(rootBST, buatMateri(5, "Perang Dingin",     "Blok Barat Timur.",50, 40));
+
+    // --- 6: Kimia ---
+    rootBST = insertBST(rootBST, buatMateri(6, "Tabel Periodik", "Unsur dasar.",    20, 30));
+    rootBST = insertBST(rootBST, buatMateri(6, "Ikatan Kimia",   "Kovalen Ionik.",  40, 40));
+    rootBST = insertBST(rootBST, buatMateri(6, "Asam & Basa",    "Skala pH.",       50, 45));
+    rootBST = insertBST(rootBST, buatMateri(6, "Stoikiometri",   "Mol.",            60, 70));
+    rootBST = insertBST(rootBST, buatMateri(6, "Kimia Organik",  "Karbon.",         80, 90));
 
     rootBST = insertBST(rootBST, buatMateri(10, "Pengantar Ekonomi", "Supply & demand.",         15, 25));
     rootBST = insertBST(rootBST, buatMateri(10, "Akuntansi Dasar",   "Neraca & jurnal.",         35, 50));
