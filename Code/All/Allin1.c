@@ -176,9 +176,7 @@ void addChild(TreeNode* parent, TreeNode* child) {
         parent->children[parent->numChildren++] = child;
 }
 
-// ========================================================
-// FUNGSI UI UX BERSAMA (Tabel Pilihan)
-// ========================================================
+// UI UX NYA
 void prosesPilihMateri(Materi* arr[], int count, PlaylistLinkedList* playlist) {
     if (count == 0) {
         printf("\n [-] Tidak ada materi yang ditemukan/sesuai kriteria.\n");
@@ -207,6 +205,8 @@ void preorderTraversalBST(BSTNode* node, const char* prefix) {
     preorderTraversalBST(node->left, newPrefix);
     preorderTraversalBST(node->right, newPrefix);
 }
+
+
 // ========================================================
 // PROGRAM UTAMA
 // ========================================================
@@ -305,6 +305,7 @@ int main() {
     rootBST = insertBST(rootBST, buatMateri(9, "Permainan Bola",    "Sepak bola & voli.",        30, 40));
     rootBST = insertBST(rootBST, buatMateri(9, "Renang",            "Gaya bebas & dada.",        50, 45));
     rootBST = insertBST(rootBST, buatMateri(9, "Kesehatan Olahraga","Cedera & pemulihan.",       60, 50));
+
     bool running = true;
     while (running) {
         int pilihanUtama;

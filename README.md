@@ -105,19 +105,6 @@ EduGraph dikembangkan secara kolaboratif oleh Mahasiswa **S1 Informatika**, Faku
 
 </div>
 
----
-
-## 📄 Hak Cipta & Lisensi
-
-Proyek ini diajukan untuk memenuhi penilaian **Ujian Tengah Semester (UTS)**
-mata kuliah **Praktikum Struktur Data dan Algoritma**.
-
-```text
-© 2026 Tim EduGraph — Universitas Syiah Kuala
-Seluruh kode bersifat akademis dan tidak untuk keperluan komersial.
-```
-
----
 
 <div align="center">
 
