@@ -17,7 +17,7 @@ BSTNode* insertBST(BSTNode* node, Materi m) {
     }
     if (m.tingkatKesulitan < node->data.tingkatKesulitan)
         node->left  = insertBST(node->left,  m);
-    else if (m.tingkatKesulitan > node->data.tingkatKesulitan)
+    else
         node->right = insertBST(node->right, m);
     return node;
 }
