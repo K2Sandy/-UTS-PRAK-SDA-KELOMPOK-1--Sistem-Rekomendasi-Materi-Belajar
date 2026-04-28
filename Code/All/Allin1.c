@@ -156,13 +156,24 @@ void kumpulkanMateriInorder(BSTNode* node, int filterKatId,
 // ========================================================
 // 3. GENERAL TREE (Sistem Kategori)
 // ========================================================
-typedef struct TreeNode { int idKategori; char namaKategori[100]; int numChildren; struct TreeNode* children[MAX_CHILDREN]; } TreeNode;
+typedef struct TreeNode {
+    int              idKategori;
+    char             namaKategori[100];
+    int              numChildren;
+    struct TreeNode* children[MAX_CHILDREN];
+} TreeNode;
+
 TreeNode* buatNodeTree(int id, const char* nama) {
     TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
-    newNode->idKategori = id; strcpy(newNode->namaKategori, nama); newNode->numChildren = 0; return newNode;
+    newNode->idKategori  = id;
+    newNode->numChildren = 0;
+    strcpy(newNode->namaKategori, nama);
+    return newNode;
 }
+
 void addChild(TreeNode* parent, TreeNode* child) {
-    if (parent->numChildren < MAX_CHILDREN) { parent->children[parent->numChildren++] = child; }
+    if (parent->numChildren < MAX_CHILDREN)
+        parent->children[parent->numChildren++] = child;
 }
 
 // ========================================================
