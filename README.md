@@ -39,19 +39,6 @@ Sistem menghindari array statis dan mengintegrasikan **3 struktur data** serta *
 
 ### 🌳 Struktur Data
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      ARSITEKTUR SISTEM                      │
-├────────────────┬────────────────────┬───────────────────────┤
-│  General Tree  │        BST         │      Linked List      │
-│                │                   │                       │
-│  Katalog &     │  Database Engine   │  Playlist / Daftar    │
-│  Hirarki Menu  │  55 Materi Belajar │  Belajar Pengguna     │
-│                │                   │                       │
-│  O(n) traversal│  O(log n) search   │  O(1) insert tail     │
-└────────────────┴────────────────────┴───────────────────────┘
-```
-
 | Struktur | Peran | Kompleksitas |
 |---|---|:---:|
 | **General Tree** | Mengelola kategori berjenjang (Root → Rumpun → Mapel) | O(n) |
@@ -68,72 +55,36 @@ Sistem menghindari array statis dan mengintegrasikan **3 struktur data** serta *
 
 ---
 
-## 📁 Struktur Direktori
-
-```
-edugraph/
-│
-├── 📄 main.c            ← Entry point, setup data, main loop
-│
-├── 📄 materi.h          ← Deklarasi struct Materi & utilitas
-├── 📄 materi.c          ← Implementasi buatMateri(), bersihkanBuffer()
-│
-├── 📄 linked_list.h     ← Deklarasi Linked List & Insertion Sort
-├── 📄 linked_list.c     ← Implementasi playlist & 2 mode sorting
-│
-├── 📄 bst.h             ← Deklarasi Binary Search Tree
-├── 📄 bst.c             ← Implementasi insert, traversal, filter
-│
-├── 📄 tree.h            ← Deklarasi General Tree
-├── 📄 tree.c            ← Implementasi buatNodeTree(), addChild()
-│
-├── 📄 ui.h              ← Deklarasi fungsi antarmuka
-├── 📄 ui.c              ← Implementasi tabel & interaksi pengguna
-│
-└── 📄 Makefile          ← Build system otomatis
-```
-
----
-
 ## 💻 Cara Menjalankan
 
 ### Prasyarat
 
-Pastikan *compiler* GCC telah terinstal:
+Pastikan *compiler* GCC telah terinstal: Windows (MinGW-w64), Linux (`build-essential`), atau macOS (`xcode-select --install`).
 
-| OS | Tool |
-|---|---|
-| 🪟 Windows | [MinGW-w64](https://www.mingw-w64.org/) atau [MSYS2](https://www.msys2.org/) |
-| 🐧 Linux | `sudo apt install build-essential` |
-| 🍎 macOS | `xcode-select --install` |
+### Langkah Instalasi & Kompilasi
 
-### Langkah Instalasi
+Proyek ini menyediakan dua versi kode: **allinone** (seluruh kode dalam satu file) dan **bagian** (kode modular yang dipisah dengan *header*). 
 
-**1. Clone repositori:**
+Jalankan perintah berikut di terminal secara berurutan:
+
 ```bash
+# 1. Clone repositori
 git clone https://github.com/username/UTS-PRAK-SDA-KELOMPOK-1.git
 cd UTS-PRAK-SDA-KELOMPOK-1
-```
 
-**2a. Kompilasi dengan Makefile** *(direkomendasikan)*:
-```bash
-make          # kompilasi semua file
-make run      # kompilasi sekaligus langsung jalankan
-make clean    # hapus file hasil build
-```
+# 2. Kompilasi (Pilih salah satu versi kode yang ingin digunakan)
 
-**2b. Kompilasi manual dengan GCC:**
-```bash
+# ---> Opsi A: Versi All-in-One (satu file)
+cd code/allinone
+gcc -Wall -std=c11 main.c -o edugraph
+
+# ---> Opsi B: Versi Modular (banyak file)
+cd code/bagian
 gcc -Wall -std=c11 main.c materi.c linked_list.c bst.c tree.c ui.c -o edugraph
-```
 
-**3. Jalankan program:**
-```bash
-# Linux / macOS
-./edugraph
-
-# Windows
-.\edugraph.exe
+# 3. Jalankan program
+./edugraph      # Untuk Linux / macOS
+.\edugraph.exe  # Untuk Windows
 ```
 
 ---
@@ -161,7 +112,7 @@ EduGraph dikembangkan secara kolaboratif oleh Mahasiswa **S1 Informatika**, Faku
 Proyek ini diajukan untuk memenuhi penilaian **Ujian Tengah Semester (UTS)**
 mata kuliah **Praktikum Struktur Data dan Algoritma**.
 
-```
+```text
 © 2026 Tim EduGraph — Universitas Syiah Kuala
 Seluruh kode bersifat akademis dan tidak untuk keperluan komersial.
 ```
