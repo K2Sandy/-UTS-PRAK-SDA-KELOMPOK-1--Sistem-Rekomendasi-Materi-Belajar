@@ -52,6 +52,7 @@ Sistem menghindari array statis dan mengintegrasikan **3 struktur data** serta *
 | **Inorder Traversal** | BST → kiri, root, kanan | Ekstrak materi otomatis dari termudah ke tersulit |
 | **Insertion Sort** | Langsung pada pointer Linked List | Sorting playlist tanpa memori tambahan |
 | **Preorder Traversal** | BST → root, kiri, kanan | Visualisasi peta silabus (Mode Admin) |
+| **Binary Searcg** | Hirarkti BST | Mencari Materi Rekomendasi |
 
 ---
 
